@@ -12,6 +12,27 @@ Tracker for Thumbtack events
 
 ## Installing and Running
 
+### How to use the extension locally:
+
+#### Installing the Chrome extension:
+
+1. Check if your [Node.js](https://nodejs.org/) version is >= **14**.
+2. Clone this repository.
+3. Run `npm install` to install the dependencies.
+4. Run `$ NODE_ENV=production npm run build` to build the Chrome extension.
+5. Go to Chrome browser go to url: `chrome://extensions/`
+6. On the top right, toggle `Developer mode` to on.
+7. Near the top left, click `Load unpacked`.
+8. Look for this repository and select the `build` folder.
+
+#### Using the Chrome extension:
+
+1. Make sure the extension is toggled on in `chrome://extensions/`.
+2. Go to any Thumbtack.com page.
+3. Open the devtools by right-clicking anywhere on the page and select `Inspect`, or for keyboard shortcuts: Command + Option + I, F12, or Control + Shift + I
+4. In the devtool tabs near the top, look for and select `TT Tracking Tracker`. It might be hidden behind `>>`. This should open the extension panel.
+5. Now interact with any Thumbtack page and events will be logged in the extension panel.
+
 ### Development Procedures:
 
 1. Check if your [Node.js](https://nodejs.org/) version is >= **14**.
@@ -51,6 +72,3 @@ by Michael Xieyang Liu | [Website](https://lxieyang.github.io)
 [![npm](https://img.shields.io/npm/v/chrome-extension-boilerplate-react)](https://www.npmjs.com/package/chrome-extension-boilerplate-react)
 [![npm-download](https://img.shields.io/npm/dw/chrome-extension-boilerplate-react)](https://www.npmjs.com/package/chrome-extension-boilerplate-react)
 [![npm](https://img.shields.io/npm/dm/chrome-extension-boilerplate-react)](https://www.npmjs.com/package/chrome-extension-boilerplate-react)
-
-[![dependencies Status](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react/status.svg)](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react)
-[![devDependencies Status](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react/dev-status.svg)](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react?type=dev)
