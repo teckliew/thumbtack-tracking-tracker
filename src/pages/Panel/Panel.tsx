@@ -3,7 +3,7 @@ import { HorizontalRule, Pill, Title } from '@thumbtack/thumbprint-react';
 
 import Tack from '../../assets/img/logo.svg';
 import { parsePayloadString } from '../utils/utils';
-import { ignorePath, ignoreType } from './configs/config';
+import { allowedPath, ignorePath, ignoreType } from './configs/config';
 import {
   Container,
   CounterPill,
@@ -34,8 +34,9 @@ const Panel: React.FC = () => {
       const { params } = postData ?? {}; // ping payload is in params
       const path = headers[2]?.value; // POST path
       const shouldIgnore = ignorePath.includes(path); // reduce noise from other pings
+      const shouldAllow = allowedPath.includes(path); // whitelisted urls
 
-      if (params && !shouldIgnore) {
+      if (params && !shouldIgnore && shouldAllow) {
         const payload: Ping = [];
 
         params.forEach(({ name = '', value: payloadValue }: PingData) => {
@@ -47,17 +48,21 @@ const Panel: React.FC = () => {
           !ignoreType.includes(type) && payload.push({ type, key, value });
         });
 
+        // compare if the current ping already exist in state
         const pingState = pings.map((ping) => JSON.stringify(ping));
+        // find the index of the existing ping in state
         const existedPingIndex = pingState.indexOf(JSON.stringify(payload));
-        const updatedPingCounter = pingCounter;
         if (existedPingIndex < 0) {
-          updatedPingCounter.push(1);
-          setPings((prevState) => [...prevState, payload]);
+          // if there is no index, this is a new ping
+          setPingCounter((prevState) => [1, ...prevState]);
+          setPings((prevState) => [payload, ...prevState]);
         } else {
+          // existing ping just update the counter
+          const updatedPingCounter = pingCounter;
           updatedPingCounter[existedPingIndex] =
             updatedPingCounter[existedPingIndex] + 1;
+          setPingCounter(updatedPingCounter);
         }
-        setPingCounter(updatedPingCounter);
       }
     },
     [pingCounter, pings]
