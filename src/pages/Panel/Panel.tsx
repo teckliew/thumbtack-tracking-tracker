@@ -100,7 +100,7 @@ const Panel: React.FC = () => {
           const pillText = pingCounter[index];
           return (
             <PingContainer
-              key={`ping-${pingCounter[index]}-${
+              key={`ping-${index}-${pingCounter[index]}-${
                 ping[index]?.value ?? 'new-ping'
               }`}
               active={index === 0}
