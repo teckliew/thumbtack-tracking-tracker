@@ -98,13 +98,10 @@ const Panel: React.FC = () => {
       <LogContainer>
         {pings.map((ping, index) => {
           const pillText = pingCounter[index];
+          const pingContainerKey = `${index}-${JSON.stringify(pingCounter)}`;
+
           return (
-            <PingContainer
-              key={`ping-${index}-${pingCounter[index]}-${
-                ping[index]?.value ?? 'new-ping'
-              }`}
-              active={index === 0}
-            >
+            <PingContainer key={pingContainerKey} active={index === 0}>
               <CounterPill>
                 <Pill>{`${pillText}`}</Pill>
               </CounterPill>
