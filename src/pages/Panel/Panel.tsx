@@ -25,6 +25,20 @@ interface PingData {
 
 type Ping = PingData[];
 
+const sanitizePayload = (input: []): Ping => {
+  const payload: Ping = [];
+
+  input.forEach(({ name = '', value: payloadValue }: PingData) => {
+    const value = parsePayloadString(payloadValue ?? '');
+    const payloadArray = parsePayloadString(name).split(/\]\[|[[\]]/g);
+    payloadArray.splice(0, 2);
+    const [type, key] = payloadArray;
+
+    !ignoreType.includes(type) && payload.push({ type, key, value });
+  });
+  return payload;
+};
+
 const Panel: React.FC = () => {
   const [pings, setPings] = useState<Ping[]>([]);
   const [pingCounter, setPingCounter] = useState<number[]>([]);
@@ -38,22 +52,13 @@ const Panel: React.FC = () => {
       const shouldAllow = allowedPath.includes(path); // whitelisted urls
 
       if (params && !shouldIgnore && shouldAllow) {
-        const payload: Ping = [];
-
-        params.forEach(({ name = '', value: payloadValue }: PingData) => {
-          const value = parsePayloadString(payloadValue ?? '');
-          const payloadArray = parsePayloadString(name).split(/\]\[|[[\]]/g);
-          payloadArray.splice(0, 2);
-          const [type, key] = payloadArray;
-
-          !ignoreType.includes(type) && payload.push({ type, key, value });
-        });
+        const payload: Ping = sanitizePayload(params);
 
         // compare if the current ping already exist in state
         const pingState = pings.map((ping) => JSON.stringify(ping));
         // find the index of the existing ping in state
-        const existedPingIndex = pingState.indexOf(JSON.stringify(payload));
-        if (existedPingIndex < 0) {
+        const existingPingIndex = pingState.indexOf(JSON.stringify(payload));
+        if (existingPingIndex < 0) {
           // if there is no index, this is a new ping
           setPingCounter((prevState) => [1, ...prevState]);
           setPings((prevState) => [payload, ...prevState]);
@@ -61,14 +66,14 @@ const Panel: React.FC = () => {
           // existing pings: reset the order so that the newest ping is on top
           setPings((prevState) => {
             const pingsState = [...prevState];
-            const existingPing = pingsState.splice(existedPingIndex, 1);
+            const existingPing = pingsState.splice(existingPingIndex, 1);
             return [...existingPing, ...pingsState];
           });
           // existing pings: update the counter
           setPingCounter((prevState) => {
             const pingCounterState = [...prevState];
             const existingPingCounter = pingCounterState.splice(
-              existedPingIndex,
+              existingPingIndex,
               1
             );
             existingPingCounter[0] = existingPingCounter[0] + 1;
