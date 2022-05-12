@@ -57,15 +57,26 @@ const Panel: React.FC = () => {
           setPingCounter((prevState) => [1, ...prevState]);
           setPings((prevState) => [payload, ...prevState]);
         } else {
-          // existing ping just update the counter
-          const updatedPingCounter = pingCounter;
-          updatedPingCounter[existedPingIndex] =
-            updatedPingCounter[existedPingIndex] + 1;
-          setPingCounter(updatedPingCounter);
+          // existing pings: reset the order so that the newest ping is on top
+          setPings((prevState) => {
+            const pingsState = [...prevState];
+            const existingPing = pingsState.splice(existedPingIndex, 1);
+            return [...existingPing, ...pingsState];
+          });
+          // existing pings: update the counter
+          setPingCounter((prevState) => {
+            const pingCounterState = [...prevState];
+            const existingPingCounter = pingCounterState.splice(
+              existedPingIndex,
+              1
+            );
+            existingPingCounter[0] = existingPingCounter[0] + 1;
+            return [...existingPingCounter, ...pingCounterState];
+          });
         }
       }
     },
-    [pingCounter, pings]
+    [pings]
   );
 
   useEffect(() => {
