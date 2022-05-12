@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 const lightBlue = '#eaf6fa';
 const gray200 = '#fafafa';
@@ -7,6 +7,19 @@ const gray300 = '#e9eced';
 const smallGap = 8;
 const headerHeight = 30;
 const lineHeight = smallGap * 2;
+
+const fading = keyframes`
+  from {
+    background-color: ${lightBlue};
+  }
+  to {
+    background-color: white;
+  }
+`;
+
+const fadingAnimation = css`
+  ${fading} 1s linear;
+`;
 
 export const Container = styled.div`
   position: relative;
@@ -53,4 +66,7 @@ export const LogContainer = styled.div`
   min-height: 100%;
   overflow-wrap: break-word;
   overflow: auto;
+`;
+export const PingContainer = styled.div<{ active?: boolean }>`
+  animation: ${({ active }) => (active ? fadingAnimation : null)};
 `;

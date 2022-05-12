@@ -12,6 +12,7 @@ import {
   DataText,
   Header,
   LogContainer,
+  PingContainer,
 } from './components/StyledComponents';
 import './Panel.css';
 
@@ -98,7 +99,12 @@ const Panel: React.FC = () => {
         {pings.map((ping, index) => {
           const pillText = pingCounter[index];
           return (
-            <div key={`ping-${index}`}>
+            <PingContainer
+              key={`ping-${pingCounter[index]}-${
+                ping[index]?.value ?? 'new-ping'
+              }`}
+              active={index === 0}
+            >
               <CounterPill>
                 <Pill>{`${pillText}`}</Pill>
               </CounterPill>
@@ -123,7 +129,7 @@ const Panel: React.FC = () => {
                 );
               })}
               <HorizontalRule />
-            </div>
+            </PingContainer>
           );
         })}
       </LogContainer>
