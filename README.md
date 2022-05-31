@@ -1,12 +1,12 @@
 <img src="src/assets/img/icon-128.png" width="64"/>
 
-# Thumbtack Tracking Tracker
+# Thumbtack Tracking Inspector
 
-Tracker for Thumbtack events
+Inspector for Thumbtack events
 
 ## Features
 
-- Track events with the name of the event being tracked
+- Logs events that are being tracked on website
 - Data payload for each event
 - Multiple occurances of the same event tracked with a counter
 
@@ -30,7 +30,7 @@ Tracker for Thumbtack events
 1. Make sure the extension is toggled on in `chrome://extensions/`.
 2. Go to any Thumbtack.com page.
 3. Open the devtools by right-clicking anywhere on the page and select `Inspect`, or for keyboard shortcuts: Command + Option + I, F12, or Control + Shift + I
-4. In the devtool tabs near the top, look for and select `TT Tracking Tracker`. It might be hidden behind `>>`. This should open the extension panel.
+4. In the devtool tabs near the top, look for and select `TT Tracking Inspector`. It might be hidden behind `>>`. This should open the extension panel.
 5. Now interact with any Thumbtack page and events will be logged in the extension panel.
 
 ### Development Procedures:

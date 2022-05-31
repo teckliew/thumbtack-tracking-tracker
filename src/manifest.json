@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Thumbtack Tracking Tracker",
+  "name": "Thumbtack Tracking Inspector",
   "version": "1.0",
   "description": "A chrome extension for tracking Thumbtack tracking events",
   "action": {

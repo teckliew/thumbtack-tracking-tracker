@@ -1,5 +1,5 @@
 {
-  "name": "thumbtack-tracking-tracker",
+  "name": "thumbtack-tracking-inspector",
   "version": "1.0",
   "description": "A chrome extension for tracking Thumbtack tracking events",
   "license": "MIT",

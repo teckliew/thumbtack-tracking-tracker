@@ -98,7 +98,7 @@ const Panel: React.FC = () => {
     <Container>
       <Header>
         <Tack />
-        <Title size={3}>Tracking Tracker</Title>
+        <Title size={3}>Tracking Inspector</Title>
       </Header>
       <LogContainer>
         {pings.map((ping, index) => {

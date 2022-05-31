@@ -1,5 +1,5 @@
 chrome.devtools.panels.create(
-  'TT Tracking Tracker',
+  'TT Tracking Inspector',
   'icon-34.png',
   'panel.html'
 );
